@@ -2,6 +2,7 @@
 % To Windows users:
 % If you are using a Windows machine, please use the basic convolution (fconv.cc).
 % This can be done by commenting out line 13 and uncommenting line 15 in
+clc; clear;
 % compile.m
 compile;
 
@@ -36,7 +37,7 @@ else
 end
 
 ims = dir('images/*.jpg');
-for i = 1:length(ims),
+for i = 1:length(ims)
     fprintf('testing: %d/%d\n', i, length(ims));
     im = imread(['images/' ims(i).name]);
     clf; imagesc(im); axis image; axis off; drawnow;

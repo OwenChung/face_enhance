@@ -2,7 +2,7 @@ function showboxes(im, boxes, posemap)
 
 % showboxes(im, boxes)
 % Draw boxes on top of image.
-figure(1)
+
 imagesc(im);
 hold on;
 axis image;
@@ -66,16 +66,13 @@ hold on;
 x1 = int64(x1);
 x2 = int64(x2);
 y1 = int64(y1);
-y2 = int64(y2);
-
+y1 = int64(x1);
 
 for i = x1: x2
     for j = y1: y2
-        im(j,i,:) = im(j,i,:)+100;
+        im(i,j,:) = im(i,j,:)+100;
     end
 end
-figure(2)
-imagesc(im)
 
 % plot(midX(lefti),midY(topi),'r.','markersize',15);
 % plot(midX(righti),midY(topi),'r.','markersize',15);

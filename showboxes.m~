@@ -70,12 +70,7 @@ y2 = int32(y2);
 
 midx = double((x1 + x2) / 2);
 midy = double((y1 + y2) / 2);
-% if midx - x1 > midy - y1
-%     radius = midx - x1;
-% else
-%     radius = midy - y1;
-% end
-radius = max(midx - x1, midy - y1);
+radius = double(max((midx-x1), (midy-y1)))
 
 imconstant = im;
 k = size(im);
@@ -107,17 +102,17 @@ rightavg = righttotal ./ double(y2 - y1 + 1);
 allavg = int32(( topavg + botavg + leftavg + rightavg ) ./ 4); 
 
 reference_brightness = 120;
-brightening_value = reference_brightness - allavg(1,1,1);
-outer_brightening_value = radius*(brightening_value - radius/4)
+brightening_value = reference_brightness - allavg;
+outer_brightening_value = radius*(brightening_value - radius/4);
 %%
 for i = 1: k(2)
     for j = 1: k(1)
-        dist = ((i - midx)^2 + (j - midy)^2)^0.5;
+        dist = (double((i - midx)^2 + (j - midy)^2))^.5;
         
         if dist < radius
             im(j,i,:) = im(j,i,:) + uint8(brightening_value - dist / 4);
         else
-            im(j,i,:) = im(j,i,:) + uint8(outer_brightening_value / dist);
+            im(j,i,:) = im(j,i,:) + uint8(outer_brightening_value/dist)
         end
     end
 end

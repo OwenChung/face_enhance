@@ -35,7 +35,7 @@ elseif length(model.components)==18
 else
     error('Can not recognize this model');
 end
-
+ 
 ims = dir('images/*.jpg');
 for i = 1:length(ims)
     fprintf('testing: %d/%d\n', i, length(ims));

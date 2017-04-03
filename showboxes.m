@@ -9,22 +9,22 @@ axis image;
 axis off;
 midX = zeros(1,length(boxes));
 midY = zeros(1,length(boxes));
-% for b = boxes
-%     partsize = b.xy(1,3)-b.xy(1,1)+1;
-%     tx = (min(b.xy(:,1)) + max(b.xy(:,3)))/2;
-%     ty = min(b.xy(:,2)) - partsize/2;
+for b = boxes
+    partsize = b.xy(1,3)-b.xy(1,1)+1;
+    tx = (min(b.xy(:,1)) + max(b.xy(:,3)))/2;
+    ty = min(b.xy(:,2)) - partsize/2;
 %     text(tx,ty, num2str(posemap(b.c)),'fontsize',18,'color','c');
-%     for i = size(b.xy,1):-1:1
-%         x1 = b.xy(i,1);
-%         y1 = b.xy(i,2);
-%         x2 = b.xy(i,3);
-%         y2 = b.xy(i,4);
+    for i = size(b.xy,1):-1:1
+        x1 = b.xy(i,1);
+        y1 = b.xy(i,2);
+        x2 = b.xy(i,3);
+        y2 = b.xy(i,4);
 %         line([x1 x1 x2 x2 x1]', [y1 y2 y2 y1 y1]', 'color', 'b', 'linewidth', 1);
-%         midX(i) = (x1 + x2)/2;
-%         midY(i) = (y1 + y2)/2;
-% %         plot(midX(i),midY(i),'r.','markersize',15);
-%     end
-% end
+        midX(i) = (x1 + x2)/2;
+        midY(i) = (y1 + y2)/2;
+%         plot(midX(i),midY(i),'r.','markersize',15);
+    end
+end
 left = midX(1);
 right = midX(1);
 top = midY(1);
@@ -54,10 +54,10 @@ for i = 1: length(midX)
         bottomi = i;
     end
 end
-x1=midX(lefti);
-x2=midX(righti);
-y1=midY(topi);
-y2=midY(bottomi);
+x1 = midX(lefti);
+x2 = midX(righti);
+y1 = midY(topi);
+y2 = midY(bottomi);
 x = [x1, x2, x2, x1, x1];
 y = [y1, y1, y2, y2, y1];
 % plot(x, y, 'r-', 'LineWidth', 3);
@@ -75,10 +75,11 @@ imconstant = im;
 for i = 1: 477
     for j = 1: 268
         dist = (double((i - midx)^2 + (j - midy)^2))^.5;
-        if dist == 0
-            
+        
+        if dist < 12
+            im(j,i,:) = im(j,i,:) + 50 - dist;
         else
-            im(j,i,:) = im(j,i,:) + 10000/dist ;
+            im(j,i,:) = im(j,i,:) + 500/dist;
         end
     end
 end
